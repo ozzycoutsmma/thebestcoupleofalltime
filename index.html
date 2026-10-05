@@ -2,14 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ozzy & Addi | Our Love Story</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Ozzy & Addi | Green Love</title>
+
+    <!-- iOS / PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ozzy & Addi">
+    <meta name="theme-color" content="#10b981">
+    <meta name="description" content="Ozzy and Addi's romantic anniversary counter and photo album.">
+
+    <!-- Apple Touch Icon (Green Heart SVG Data URI) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' rx='128' fill='%2308261b'/><path d='M256 420c-8 0-16-4-22-10L92 268c-44-44-44-115 0-159s115-44 159 0l5 5 5-5c44-44 115-44 159 0s44 115 0 159L278 410c-6 6-14 10-22 10z' fill='%2334d399'/></svg>">
+    
+    <!-- Dynamic Web App Manifest Injection -->
+    <script>
+        (function() {
+            const svgIcon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' rx='128' fill='%2308261b'/><path d='M256 420c-8 0-16-4-22-10L92 268c-44-44-44-115 0-159s115-44 159 0l5 5 5-5c44-44 115-44 159 0s44 115 0 159L278 410c-6 6-14 10-22 10z' fill='%2334d399'/></svg>";
+            
+            const manifest = {
+                "name": "Ozzy & Addi",
+                "short_name": "Ozzy & Addi",
+                "description": "Our Journey Together • Ozzy and Addi",
+                "start_url": "./",
+                "display": "standalone",
+                "background_color": "#020d08",
+                "theme_color": "#10b981",
+                "orientation": "portrait",
+                "icons": [
+                    {
+                        "src": svgIcon,
+                        "sizes": "192x192 512x512",
+                        "type": "image/svg+xml",
+                        "purpose": "any maskable"
+                    }
+                ]
+            };
+            const stringManifest = JSON.stringify(manifest);
+            const blob = new Blob([stringManifest], {type: 'application/json'});
+            const manifestURL = URL.createObjectURL(blob);
+            
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = manifestURL;
+            document.head.appendChild(link);
+        })();
+    </script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    
+    <!-- Google Fonts & Fallbacks -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -18,31 +66,15 @@
             theme: {
                 extend: {
                     colors: {
-                        emeraldDark: '#041d13',
-                        emeraldDeep: '#0a2e20',
-                        emeraldGlass: 'rgba(10, 46, 32, 0.65)',
+                        emeraldDark: '#03140d',
+                        emeraldDeep: '#08261b',
                         emeraldAccent: '#10b981',
                         emeraldGlow: '#34d399',
-                        mintLight: '#a7f3d0',
+                        mintLight: '#d1fae5',
                     },
                     fontFamily: {
-                        romantic: ['"Dancing Script"', 'cursive'],
+                        clarity: ['"Clarity City"', '"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        glow: {
-                            '0%': { boxShadow: '0 0 15px rgba(52, 211, 153, 0.3)' },
-                            '100%': { boxShadow: '0 0 30px rgba(52, 211, 153, 0.7)' },
-                        }
                     }
                 }
             }
@@ -50,17 +82,66 @@
     </script>
     
     <style>
-        body {
-            background-color: #03140d;
-            background-image: 
-                radial-gradient(at 10% 20%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 80%, rgba(52, 211, 153, 0.12) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(4, 29, 19, 0.8) 0px, transparent 100%);
-            background-attachment: fixed;
-            overflow-x: hidden;
+        /* Define Clarity City webfont fallback structure */
+        @font-face {
+            font-family: 'Clarity City';
+            src: local('Clarity City'), local('ClarityCity-Bold'),
+                 url('https://cdn.jsdelivr.net/npm/@vmware/clarity-city/fonts/ClarityCity-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
         }
 
-        /* Animated Canvas Heart Particles Background */
+        @font-face {
+            font-family: 'Clarity City';
+            src: local('Clarity City Medium'), local('ClarityCity-Medium'),
+                 url('https://cdn.jsdelivr.net/npm/@vmware/clarity-city/fonts/ClarityCity-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* COMPLETELY DISABLE TEXT SELECTION & MOBILE COPY/SELECT CALLOUTS */
+        *, ::before, ::after {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important; /* Disables iOS long-press popover/menus */
+            -webkit-tap-highlight-color: transparent !important; /* Removes mobile tap highlight box */
+        }
+
+        body {
+            background-color: #020d08;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.2) 0px, transparent 45%),
+                radial-gradient(at 85% 85%, rgba(52, 211, 153, 0.15) 0px, transparent 45%),
+                radial-gradient(at 50% 50%, rgba(3, 20, 13, 0.95) 0px, transparent 100%);
+            background-attachment: fixed;
+            color: #d1fae5;
+            min-height: 100vh;
+        }
+
+        .clarity-title {
+            font-family: 'Clarity City', 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism Green Romantic Cards */
+        .glass-card {
+            background: rgba(8, 38, 27, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 16px rgba(52, 211, 153, 0.7);
+        }
+
+        /* Canvas background overlay */
         #heartCanvas {
             position: fixed;
             top: 0;
@@ -68,128 +149,109 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
-        }
-
-        .glass-panel {
-            background: rgba(8, 38, 27, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(52, 211, 153, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .glass-panel-glow {
-            background: rgba(10, 46, 32, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(52, 211, 153, 0.4);
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
-        }
-
-        .text-glow {
-            text-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+            z-index: 1;
         }
     </style>
 </head>
-<body class="font-sans text-mintLight min-h-screen flex flex-col justify-between relative selection:bg-emeraldAccent selection:text-black">
+<body class="relative flex flex-col justify-between min-h-screen font-sans overflow-x-hidden">
 
-    <!-- Interactive Canvas Background for Green Hearts -->
+    <!-- Floating Green Hearts Particles Canvas -->
     <canvas id="heartCanvas"></canvas>
 
-    <div class="relative z-10 flex flex-col min-h-screen">
+    <div class="relative z-10 flex flex-col min-h-screen justify-between py-8 px-4">
         
-        <!-- Header / Hero Section -->
-        <header class="pt-10 pb-6 px-4 text-center">
-            <div class="inline-flex items-center justify-center p-2 px-4 rounded-full glass-panel mb-4 animate-float">
-                <i class="fa-solid fa-heart text-emeraldGlow text-sm mr-2 animate-pulse"></i>
-                <span class="text-xs tracking-widest uppercase font-semibold text-emeraldGlow">Forever & Always</span>
-                <i class="fa-solid fa-heart text-emeraldGlow text-sm ml-2 animate-pulse"></i>
+        <header class="text-center pt-4 pb-2">
+            <!-- PWA Install Button Container -->
+            <div id="installContainer" class="hidden mb-4">
+                <button id="installAppBtn" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emeraldGlow text-emeraldDark font-bold text-sm shadow-lg shadow-emeraldGlow/20 hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Install App</span>
+                </button>
             </div>
-            
-            <h1 class="text-5xl md:text-7xl font-romantic text-white tracking-wide text-glow mb-2">
-                Ozzy <span class="text-emeraldGlow">&</span> Addi
+
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emeraldDeep/80 border border-emeraldGlow/40 mb-5 shadow-lg">
+                <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
+                <span class="text-xs uppercase tracking-widest text-emeraldGlow font-semibold">Green Love</span>
+                <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
+            </div>
+
+            <!-- Header styled with Clarity City Font -->
+            <h1 class="clarity-title text-5xl md:text-7xl text-white glow-text mb-3">
+                Ozzy <span class="text-emeraldGlow">&amp;</span> Addi
             </h1>
+            
             <p class="text-emeraldAccent text-sm md:text-base font-medium tracking-wide">
-                Our Journey Together • Written in Emerald
+                Together Forever • Every Second Counts
             </p>
         </header>
 
-        <!-- Main Content Grid -->
-        <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-4 flex flex-col items-center justify-center gap-8">
+        <main class="max-w-3xl w-full mx-auto my-auto py-6">
             
-            <!-- Live Time Counter Card -->
-            <div class="w-full glass-panel-glow rounded-3xl p-6 md:p-8 text-center transition-all duration-300 hover:border-emeraldGlow">
-                <div class="flex items-center justify-center gap-2 mb-6">
-                    <i class="fa-solid fa-seedling text-emeraldGlow text-xl"></i>
-                    <h2 class="text-lg md:text-xl font-semibold uppercase tracking-wider text-white">
+            <!-- Counter Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-10 text-center relative overflow-hidden">
+                <div class="flex items-center justify-center gap-3 mb-8">
+                    <i class="fa-solid fa-leaf text-emeraldGlow text-xl"></i>
+                    <h2 class="clarity-title text-lg md:text-2xl font-semibold uppercase tracking-wider text-white">
                         Time Together
                     </h2>
-                    <i class="fa-solid fa-seedling text-emeraldGlow text-xl"></i>
+                    <i class="fa-solid fa-leaf text-emeraldGlow text-xl"></i>
                 </div>
 
-                <!-- Timer Grid Display -->
+                <!-- Live Timer Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     <!-- Days -->
-                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
-                        <span id="days" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">0</span>
-                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Days</span>
+                    <div class="bg-emeraldDark/80 border border-emeraldGlow/20 rounded-2xl p-4 flex flex-col items-center justify-center">
+                        <span id="days" class="clarity-title text-4xl md:text-5xl font-bold text-white glow-text mb-1">0</span>
+                        <span class="text-xs text-emeraldGlow uppercase tracking-widest font-semibold">Days</span>
                     </div>
+
                     <!-- Hours -->
-                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
-                        <span id="hours" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
-                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Hours</span>
+                    <div class="bg-emeraldDark/80 border border-emeraldGlow/20 rounded-2xl p-4 flex flex-col items-center justify-center">
+                        <span id="hours" class="clarity-title text-4xl md:text-5xl font-bold text-white glow-text mb-1">00</span>
+                        <span class="text-xs text-emeraldGlow uppercase tracking-widest font-semibold">Hours</span>
                     </div>
+
                     <!-- Minutes -->
-                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
-                        <span id="minutes" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
-                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Minutes</span>
+                    <div class="bg-emeraldDark/80 border border-emeraldGlow/20 rounded-2xl p-4 flex flex-col items-center justify-center">
+                        <span id="minutes" class="clarity-title text-4xl md:text-5xl font-bold text-white glow-text mb-1">00</span>
+                        <span class="text-xs text-emeraldGlow uppercase tracking-widest font-semibold">Minutes</span>
                     </div>
+
                     <!-- Seconds -->
-                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
-                        <span id="seconds" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
-                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Seconds</span>
+                    <div class="bg-emeraldDark/80 border border-emeraldGlow/20 rounded-2xl p-4 flex flex-col items-center justify-center">
+                        <span id="seconds" class="clarity-title text-4xl md:text-5xl font-bold text-white glow-text mb-1">00</span>
+                        <span class="text-xs text-emeraldGlow uppercase tracking-widest font-semibold">Seconds</span>
                     </div>
                 </div>
 
-                <div class="mt-6 text-xs text-emeraldAccent/80 italic flex items-center justify-center gap-1">
+                <div class="mt-8 text-xs text-emeraldAccent/80 flex items-center justify-center gap-2 italic">
                     <i class="fa-solid fa-infinity text-emeraldGlow"></i>
-                    <span>Growing stronger with every passing second</span>
+                    <span>Growing stronger every day</span>
                 </div>
             </div>
 
-            <!-- Photos & Album Link Section -->
-            <div class="w-full max-w-md text-center">
-                <a href="https://drive.proton.me/urls/B35ETS3AER#vEtWuanMmmUz" target="_blank" rel="noopener noreferrer" 
-                   class="group relative inline-flex items-center justify-center w-full px-8 py-4 text-lg font-semibold text-emeraldDark bg-emeraldGlow rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:bg-white focus:outline-none">
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emeraldGlow to-emeraldAccent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    <span class="relative flex items-center gap-3">
-                        <i class="fa-solid fa-images text-xl"></i>
-                        <span>View Our Photo Album</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-sm group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+            <div class="mt-8 text-center max-w-md mx-auto space-y-3">
+                <a href="https://drive.proton.me/urls/B35ETS3AER#vEtWuanMmmUz" target="_blank" rel="noopener noreferrer"
+                   class="group relative inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold text-emeraldDark bg-emeraldGlow rounded-2xl shadow-xl hover:bg-white transition-all duration-300">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-images text-lg"></i>
+                        <span class="clarity-title">View Our Photo Album</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                     </span>
                 </a>
-                <p class="mt-3 text-xs text-emeraldGlow/70">
-                    Click to explore all our favorite photos together
-                </p>
             </div>
 
         </main>
 
-        <!-- Footer -->
-        <footer class="py-6 text-center text-xs text-emeraldAccent/60">
-            <p class="flex items-center justify-center gap-1">
-                Made with <i class="fa-solid fa-heart text-emeraldGlow animate-pulse"></i> for Ozzy & Addi
+        <footer class="text-center py-4 text-xs text-emeraldAccent/60">
+            <p>
+                Ozzy &amp; Addi • Forever in Love
             </p>
         </footer>
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
-        // -------------------------------------------------------------
-        // 1. Precise Elapsed Time Counter Logic
-        // Start Date: August 1, 2026, 23:50:01 CDT
-        // -------------------------------------------------------------
+        // Start date calculated from original screenshot timestamp (Aug 1, 2026, 11:50:01 PM CDT)
         const startDate = new Date('2026-08-01T23:50:01-05:00').getTime();
 
         function updateCounter() {
@@ -209,13 +271,76 @@
             }
         }
 
-        // Run instantly and refresh every second
         updateCounter();
         setInterval(updateCounter, 1000);
 
-        // -------------------------------------------------------------
-        // 2. Animated Floating Green Heart Particles Canvas
-        // -------------------------------------------------------------
+        // Prevent context menus on tap/hold across the document
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Inline Service Worker setup via Blob
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'ozzy-addi-pwa-v1';
+                self.addEventListener('install', (e) => {
+                    self.skipWaiting();
+                });
+                self.addEventListener('activate', (e) => {
+                    return self.clients.claim();
+                });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        fetch(e.request).catch(() => caches.match(e.request))
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            
+            navigator.serviceWorker.register(swUrl)
+                .then(reg => console.log('SW Registered'))
+                .catch(err => console.log('SW Registration error:', err));
+        }
+
+        // PWA Install Prompt handler
+        let deferredPrompt;
+        const installContainer = document.getElementById('installContainer');
+        const installAppBtn = document.getElementById('installAppBtn');
+
+        // Check if app is already running as standalone PWA
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+        if (!isStandalone) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installContainer.classList.remove('hidden');
+            });
+
+            // iOS detection for custom install hint
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS && !isStandalone) {
+                installContainer.classList.remove('hidden');
+                installAppBtn.innerHTML = '<i class="fa-solid fa-plus"></i><span>Add to Home Screen (Safari Menu)</span>';
+                installAppBtn.addEventListener('click', () => {
+                    alert('To install on iPhone/iPad:\n1. Tap the Share button at the bottom of Safari.\n2. Scroll down and tap "Add to Home Screen".');
+                });
+            } else {
+                installAppBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            installContainer.classList.add('hidden');
+                        }
+                        deferredPrompt = null;
+                    }
+                });
+            }
+        }
+
+        // Floating Green Heart Particles
         const canvas = document.getElementById('heartCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -227,20 +352,20 @@
             height = canvas.height = window.innerHeight;
         });
 
-        class HeartParticle {
+        class GreenHeart {
             constructor() {
                 this.reset();
             }
 
             reset() {
                 this.x = Math.random() * width;
-                this.y = height + 20 + Math.random() * 50;
+                this.y = height + 20 + Math.random() * 40;
                 this.size = Math.random() * 12 + 6;
                 this.speedY = Math.random() * 1.2 + 0.4;
-                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.6;
                 this.opacity = Math.random() * 0.5 + 0.2;
                 this.fadeSpeed = Math.random() * 0.002 + 0.001;
-                this.hue = Math.random() * 40 + 140; // Green emerald spectrum
+                this.hue = Math.random() * 35 + 140; // Emerald to Mint Green
             }
 
             update() {
@@ -257,12 +382,11 @@
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.scale(this.size / 10, this.size / 10);
-                ctx.fillStyle = `hsla(${this.hue}, 80%, 65%, ${this.opacity})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = `hsl(${this.hue}, 80%, 50%)`;
+                ctx.fillStyle = `hsla(${this.hue}, 85%, 60%, ${this.opacity})`;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = `hsl(${this.hue}, 85%, 45%)`;
 
                 ctx.beginPath();
-                // Heart path formula
                 ctx.moveTo(0, 0);
                 ctx.bezierCurveTo(-5, -5, -10, 2, 0, 10);
                 ctx.bezierCurveTo(10, 2, 5, -5, 0, 0);
@@ -271,19 +395,19 @@
             }
         }
 
-        const particles = Array.from({ length: 35 }, () => new HeartParticle());
+        const heartParticles = Array.from({ length: 35 }, () => new GreenHeart());
 
-        function animateParticles() {
+        function animateHearts() {
             ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            heartParticles.forEach(heart => {
+                heart.update();
+                heart.draw();
             });
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animateHearts);
         }
 
         window.onload = function() {
-            animateParticles();
+            animateHearts();
         };
     </script>
 </body>
