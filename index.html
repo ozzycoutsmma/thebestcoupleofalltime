@@ -11,15 +11,14 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ozzy & Addi">
     <meta name="theme-color" content="#2ecc71">
-    <meta name="description" content="Ozzy and Addi's romantic anniversary app with love timeline, photo album, and secret notes.">
+    <meta name="description" content="Ozzy and Addi's romantic anniversary app with shared Spotify playlist and live counter.">
 
-    <!-- Apple Touch Icon (Pure Green Solid Icon Data URI - No Shapes/Text) -->
+    <!-- Apple Touch Icon (Pure Solid Green Icon - No Shapes or Icons) -->
     <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%232ecc71'/></svg>">
     
     <!-- Dynamic Web App Manifest Injection with Pure Solid Green Icon -->
     <script>
         (function() {
-            /* Pure green solid SVG icon with no shapes or text */
             const solidGreenIcon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%232ecc71'/></svg>";
             
             const manifest = {
@@ -84,7 +83,6 @@
     </script>
     
     <style>
-        /* Define Clarity City webfont fallback structure */
         @font-face {
             font-family: 'Clarity City';
             src: local('Clarity City'), local('ClarityCity-Bold'),
@@ -153,20 +151,6 @@
             pointer-events: none;
             z-index: 1;
         }
-
-        /* Custom scrollbar for timeline */
-        .custom-scroll::-webkit-scrollbar {
-            height: 6px;
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(3, 18, 10, 0.5);
-            border-radius: 10px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #2ecc71;
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body class="relative flex flex-col justify-between min-h-screen font-sans overflow-x-hidden">
@@ -185,18 +169,10 @@
                 </button>
             </div>
 
-            <!-- Top Tagline & Audio Soundscape Toggle -->
-            <div class="flex items-center justify-center gap-3 mb-4">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emeraldDeep/90 border border-emeraldGlow/40 shadow-lg">
-                    <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
-                    <span class="text-xs uppercase tracking-widest text-emeraldGlow font-semibold">Green Love</span>
-                    <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
-                </div>
-
-                <!-- Romantic Ambient Sound Synth Toggle Button -->
-                <button id="audioToggleBtn" title="Toggle Romantic Ambient Chime" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emeraldDeep/90 border border-emeraldGlow/40 text-emeraldGlow hover:bg-emeraldAccent hover:text-emeraldDark transition-all duration-300">
-                    <i id="audioIcon" class="fa-solid fa-music text-xs"></i>
-                </button>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emeraldDeep/90 border border-emeraldGlow/40 shadow-lg mb-4">
+                <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
+                <span class="text-xs uppercase tracking-widest text-emeraldGlow font-semibold">Green Love</span>
+                <i class="fa-solid fa-heart text-emeraldGlow text-xs animate-pulse"></i>
             </div>
 
             <!-- Main App Header in Clarity City Font -->
@@ -243,22 +219,31 @@
                         <span class="text-xs text-emeraldGlow uppercase tracking-widest font-semibold">Seconds</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="mt-8 pt-6 border-t border-emeraldGlow/20 text-left">
-                    <div class="flex justify-between items-center text-xs mb-2">
-                        <span class="text-emeraldGlow font-semibold flex items-center gap-1.5">
-                            <i class="fa-solid fa-flag-checkered text-xs"></i>
-                            <span id="milestoneLabel">Next Milestone: 3 Month Anniversary</span>
-                        </span>
-                        <span id="milestonePercent" class="text-white font-bold">0%</span>
+            <!-- Embedded Spotify Playlist Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-8">
+                <div class="flex items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-spotify text-emeraldGlow text-2xl"></i>
+                        <h3 class="clarity-title text-lg md:text-xl text-white">Our Shared Playlist</h3>
                     </div>
-                    <div class="w-full bg-emeraldDark/90 h-3 rounded-full overflow-hidden p-0.5 border border-emeraldGlow/30">
-                        <div id="milestoneProgressBar" class="bg-gradient-to-r from-emeraldAccent to-emeraldGlow h-full rounded-full transition-all duration-500 shadow-lg shadow-emeraldGlow/50" style="width: 0%"></div>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px] text-emeraldAccent/70 mt-1.5">
-                        <span id="milestoneStartText">Aug 1, 2026</span>
-                        <span id="milestoneEndText">Nov 1, 2026</span>
-                    </div>
+                    <a href="https://open.spotify.com/playlist/1DwrsHc06XCuSeytEZDMQG?si=HNsKLHjMTLuxr1WOTjApnw" target="_blank" rel="noopener noreferrer" class="text-xs text-emeraldGlow hover:underline flex items-center gap-1 font-semibold">
+                        <span>Open in Spotify</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+
+                <div class="w-full rounded-2xl overflow-hidden border border-emeraldGlow/30 shadow-lg bg-emeraldDark">
+                    <iframe style="border-radius:12px" 
+                        src="https://open.spotify.com/embed/playlist/1DwrsHc06XCuSeytEZDMQG?utm_source=generator&theme=0" 
+                        width="100%" 
+                        height="352" 
+                        frameBorder="0" 
+                        allowfullscreen="" 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy">
+                    </iframe>
                 </div>
             </div>
 
@@ -274,90 +259,172 @@
                 </a>
             </div>
 
-            <!-- Feature 1: Love Story Timeline -->
-            <div class="glass-card rounded-3xl p-6 md:p-8">
-                <div class="flex items-center gap-3 mb-6">
-                    <i class="fa-solid fa-timeline text-emeraldGlow text-xl"></i>
-                    <h3 class="clarity-title text-lg md:text-xl text-white">Our Love Story Timeline</h3>
-                </div>
+        </main>
 
-                <div class="relative pl-6 border-l-2 border-emeraldGlow/30 space-y-6">
-                    <!-- Chapter 1 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emeraldAccent border-4 border-emeraldDark"></div>
-                        <span class="text-xs text-emeraldGlow font-bold uppercase tracking-wider">August 1, 2026</span>
-                        <h4 class="clarity-title text-white text-base font-bold">The Beginning of Us</h4>
-                        <p class="text-xs text-emeraldAccent/80 mt-1">The official start of Ozzy & Addi's story together. Best day ever!</p>
-                    </div>
+        <footer class="text-center py-4 text-xs text-emeraldAccent/60">
+            <p>
+                Ozzy &amp; Addi • Forever in Love
+            </p>
+        </footer>
+    </div>
 
-                    <!-- Chapter 2 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emeraldGlow border-4 border-emeraldDark animate-ping"></div>
-                        <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emeraldGlow border-4 border-emeraldDark"></div>
-                        <span class="text-xs text-emeraldGlow font-bold uppercase tracking-wider">November 1, 2026</span>
-                        <h4 class="clarity-title text-white text-base font-bold">3 Month Milestone</h4>
-                        <p class="text-xs text-emeraldAccent/80 mt-1">3 full months of endless laughs, pure love, and growing together.</p>
-                    </div>
+    <script>
+        // Anniversary Start Date: Aug 1, 2026, 11:50:01 PM CDT
+        const startDate = new Date('2026-08-01T23:50:01-05:00').getTime();
 
-                    <!-- Chapter 3 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emeraldDeep border-2 border-emeraldGlow"></div>
-                        <span class="text-xs text-emeraldGlow/60 font-bold uppercase tracking-wider">February 1, 2027</span>
-                        <h4 class="clarity-title text-white/80 text-base font-bold">6 Month Milestone</h4>
-                        <p class="text-xs text-emeraldAccent/60 mt-1">Half a year together in our green paradise.</p>
-                    </div>
+        function updateCounter() {
+            const now = new Date().getTime();
+            const difference = now - startDate;
 
-                    <!-- Chapter 4 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-emeraldDeep border-2 border-emeraldGlow"></div>
-                        <span class="text-xs text-emeraldGlow/60 font-bold uppercase tracking-wider">August 1, 2027</span>
-                        <h4 class="clarity-title text-white/80 text-base font-bold">1 Year Anniversary</h4>
-                        <p class="text-xs text-emeraldAccent/60 mt-1">365 days of loving each other uninterrupted!</p>
-                    </div>
-                </div>
-            </div>
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            <!-- Grid for Memory Capsule & Love Notes -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Daily Love Quote Generator -->
-                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-2 mb-4">
-                            <i class="fa-solid fa-quote-left text-emeraldGlow text-lg"></i>
-                            <h3 class="clarity-title text-base md:text-lg text-white">Daily Love Note</h3>
-                        </div>
-                        <p id="quoteText" class="text-sm italic text-emeraldAccent/90 leading-relaxed min-h-[60px] flex items-center">
-                            "You are my favorite thought every single day, Addi."
-                        </p>
-                    </div>
-                    <button id="nextQuoteBtn" class="mt-4 w-full py-2.5 px-4 rounded-xl bg-emeraldDeep border border-emeraldGlow/40 text-emeraldGlow text-xs font-bold hover:bg-emeraldAccent hover:text-emeraldDark transition-all duration-300 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-sparkles"></i>
-                        <span>Generate New Note</span>
-                    </button>
-                </div>
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+        }
 
-                <!-- Secret Memory Capsules -->
-                <div class="glass-card rounded-3xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-box-archive text-emeraldGlow text-lg"></i>
-                        <h3 class="clarity-title text-base md:text-lg text-white">Tap To Reveal Note</h3>
-                    </div>
-                    <div class="space-y-3">
-                        <!-- Secret Note 1 -->
-                        <button onclick="toggleNote('note1')" class="w-full p-3 rounded-xl bg-emeraldDark/90 border border-emeraldGlow/30 text-left hover:border-emeraldGlow transition-all duration-300">
-                            <div class="flex justify-between items-center text-xs text-emeraldGlow font-bold">
-                                <span>Note #1 • For Addi</span>
-                                <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                            </div>
-                            <p id="note1" class="hidden text-xs text-white/90 mt-2 pt-2 border-t border-emeraldGlow/20">
-                                💚 You make every day brighter just by being yourself. I love you so much!
-                            </p>
-                        </button>
+        updateCounter();
+        setInterval(updateCounter, 1000);
 
-                        <!-- Secret Note 2 -->
-                        <button onclick="toggleNote('note2')" class="w-full p-3 rounded-xl bg-emeraldDark/90 border border-emeraldGlow/30 text-left hover:border-emeraldGlow transition-all duration-300">
-                            <div class="flex justify-between items-center text-xs text-emeraldGlow font-bold">
-                                <span>Note #2 • For Ozzy</span>
-                                <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                            </d
+        // Prevent context menus on tap/hold across the entire document
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Inline Service Worker setup via Blob
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'ozzy-addi-pwa-v3';
+                self.addEventListener('install', (e) => {
+                    self.skipWaiting();
+                });
+                self.addEventListener('activate', (e) => {
+                    return self.clients.claim();
+                });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        fetch(e.request).catch(() => caches.match(e.request))
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            
+            navigator.serviceWorker.register(swUrl)
+                .then(() => console.log('SW Registered'))
+                .catch(err => console.log('SW Registration error:', err));
+        }
+
+        // PWA Install Prompt handler
+        let deferredPrompt;
+        const installContainer = document.getElementById('installContainer');
+        const installAppBtn = document.getElementById('installAppBtn');
+
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+        if (!isStandalone) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installContainer.classList.remove('hidden');
+            });
+
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS && !isStandalone) {
+                installContainer.classList.remove('hidden');
+                installAppBtn.innerHTML = '<i class="fa-solid fa-plus"></i><span>Add to Home Screen (Safari Menu)</span>';
+                installAppBtn.addEventListener('click', () => {
+                    alert('To install on iPhone/iPad:\n1. Tap the Share button at the bottom of Safari.\n2. Scroll down and tap "Add to Home Screen".');
+                });
+            } else {
+                installAppBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            installContainer.classList.add('hidden');
+                        }
+                        deferredPrompt = null;
+                    }
+                });
+            }
+        }
+
+        // Green Floating Hearts Canvas Animation
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class GreenHeart {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + 20 + Math.random() * 40;
+                this.size = Math.random() * 12 + 6;
+                this.speedY = Math.random() * 1.2 + 0.4;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.fadeSpeed = Math.random() * 0.002 + 0.001;
+                this.hue = Math.random() * 35 + 135; // Emerald Green spectrum
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.y * 0.02) * this.speedX;
+                this.opacity -= this.fadeSpeed;
+
+                if (this.y < -30 || this.opacity <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(this.size / 10, this.size / 10);
+                ctx.fillStyle = `hsla(${this.hue}, 85%, 60%, ${this.opacity})`;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = `hsl(${this.hue}, 85%, 45%)`;
+
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-5, -5, -10, 2, 0, 10);
+                ctx.bezierCurveTo(10, 2, 5, -5, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        const heartParticles = Array.from({ length: 35 }, () => new GreenHeart());
+
+        function animateHearts() {
+            ctx.clearRect(0, 0, width, height);
+            heartParticles.forEach(heart => {
+                heart.update();
+                heart.draw();
+            });
+            requestAnimationFrame(animateHearts);
+        }
+
+        window.onload = function() {
+            animateHearts();
+        };
+    </script>
+</body>
+</html>
