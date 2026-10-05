@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ozzy & Addi</title>
+    <style>
+        :root {
+            --bg-color: #0d0f12;
+            --card-bg: #161a20;
+            --accent-color: #ff5e7e;
+            --text-color: #f0f2f5;
+            --subtext-color: #9ba1b0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px 16px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        h1 span {
+            color: var(--accent-color);
+        }
+
+        p.subtitle {
+            color: var(--subtext-color);
+            margin-top: 6px;
+            font-size: 0.95rem;
+        }
+
+        .counter-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px 16px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .counter-card h2 {
+            font-size: 1.1rem;
+            color: var(--subtext-color);
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: var(--subtext-color);
+            margin-top: 4px;
+            text-transform: lowercase;
+        }
+
+        .gallery-container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .gallery-title {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .drive-btn {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto 24px auto;
+            text-align: center;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 94, 126, 0.4);
+            color: var(--accent-color);
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .drive-btn:hover {
+            background-color: rgba(255, 94, 126, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ozzy <span>&</span> Addi</h1>
+        <p class="subtitle">Our Journey Together</p>
+    </header>
+
+    <div class="counter-card">
+        <h2>Time Together</h2>
+        <div class="timer-grid">
+            <div class="timer-box">
+                <span class="timer-value" id="days">0</span>
+                <span class="timer-label">days</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="hours">00</span>
+                <span class="timer-label">hr</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="minutes">00</span>
+                <span class="timer-label">min</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="seconds">00</span>
+                <span class="timer-label">sec</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-container">
+        <a href="https://drive.proton.me/urls/B35ETS3AER#vEtWuanMmmUz" target="_blank" rel="noopener noreferrer" class="drive-btn">
+            📷 View Shared Photo Album
+        </a>
+    </div>
+
+    <script>
+        // Start Date calculated directly from Candle app screenshot: August 1, 2026, 23:50:01 CDT
+        const startDate = new Date('2026-08-01T23:50:01-05:00').getTime();
+
+        function updateCounter() {
+            const now = new Date().getTime();
+            const difference = now - startDate;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+        }
+
+        updateCounter();
+        setInterval(updateCounter, 1000);
+    </script>
+</body>
+</html>
