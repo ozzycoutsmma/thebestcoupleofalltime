@@ -3,168 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ozzy & Addi</title>
+    <title>Ozzy & Addi | Our Love Story</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldDark: '#041d13',
+                        emeraldDeep: '#0a2e20',
+                        emeraldGlass: 'rgba(10, 46, 32, 0.65)',
+                        emeraldAccent: '#10b981',
+                        emeraldGlow: '#34d399',
+                        mintLight: '#a7f3d0',
+                    },
+                    fontFamily: {
+                        romantic: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(52, 211, 153, 0.3)' },
+                            '100%': { boxShadow: '0 0 30px rgba(52, 211, 153, 0.7)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        :root {
-            --bg-color: #0d0f12;
-            --card-bg: #161a20;
-            --accent-color: #ff5e7e;
-            --text-color: #f0f2f5;
-            --subtext-color: #9ba1b0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 24px 16px;
+            background-color: #03140d;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(52, 211, 153, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(4, 29, 19, 0.8) 0px, transparent 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        h1 span {
-            color: var(--accent-color);
-        }
-
-        p.subtitle {
-            color: var(--subtext-color);
-            margin-top: 6px;
-            font-size: 0.95rem;
-        }
-
-        .counter-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px 16px;
+        /* Animated Canvas Heart Particles Background */
+        #heartCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 480px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            margin-bottom: 32px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .counter-card h2 {
-            font-size: 1.1rem;
-            color: var(--subtext-color);
-            margin-bottom: 18px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .glass-panel {
+            background: rgba(8, 38, 27, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+        .glass-panel-glow {
+            background: rgba(10, 46, 32, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(52, 211, 153, 0.4);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
         }
 
-        .timer-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .timer-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        .timer-label {
-            font-size: 0.75rem;
-            color: var(--subtext-color);
-            margin-top: 4px;
-            text-transform: lowercase;
-        }
-
-        .gallery-container {
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .gallery-title {
-            font-size: 1.3rem;
-            margin-bottom: 16px;
-            color: var(--text-color);
-            text-align: center;
-        }
-
-        .drive-btn {
-            display: block;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto 24px auto;
-            text-align: center;
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 94, 126, 0.4);
-            color: var(--accent-color);
-            padding: 12px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-
-        .drive-btn:hover {
-            background-color: rgba(255, 94, 126, 0.1);
+        .text-glow {
+            text-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
         }
     </style>
 </head>
-<body>
+<body class="font-sans text-mintLight min-h-screen flex flex-col justify-between relative selection:bg-emeraldAccent selection:text-black">
 
-    <header>
-        <h1>Ozzy <span>&</span> Addi</h1>
-        <p class="subtitle">Our Journey Together</p>
-    </header>
+    <!-- Interactive Canvas Background for Green Hearts -->
+    <canvas id="heartCanvas"></canvas>
 
-    <div class="counter-card">
-        <h2>Time Together</h2>
-        <div class="timer-grid">
-            <div class="timer-box">
-                <span class="timer-value" id="days">0</span>
-                <span class="timer-label">days</span>
+    <div class="relative z-10 flex flex-col min-h-screen">
+        
+        <!-- Header / Hero Section -->
+        <header class="pt-10 pb-6 px-4 text-center">
+            <div class="inline-flex items-center justify-center p-2 px-4 rounded-full glass-panel mb-4 animate-float">
+                <i class="fa-solid fa-heart text-emeraldGlow text-sm mr-2 animate-pulse"></i>
+                <span class="text-xs tracking-widest uppercase font-semibold text-emeraldGlow">Forever & Always</span>
+                <i class="fa-solid fa-heart text-emeraldGlow text-sm ml-2 animate-pulse"></i>
             </div>
-            <div class="timer-box">
-                <span class="timer-value" id="hours">00</span>
-                <span class="timer-label">hr</span>
+            
+            <h1 class="text-5xl md:text-7xl font-romantic text-white tracking-wide text-glow mb-2">
+                Ozzy <span class="text-emeraldGlow">&</span> Addi
+            </h1>
+            <p class="text-emeraldAccent text-sm md:text-base font-medium tracking-wide">
+                Our Journey Together • Written in Emerald
+            </p>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-4 flex flex-col items-center justify-center gap-8">
+            
+            <!-- Live Time Counter Card -->
+            <div class="w-full glass-panel-glow rounded-3xl p-6 md:p-8 text-center transition-all duration-300 hover:border-emeraldGlow">
+                <div class="flex items-center justify-center gap-2 mb-6">
+                    <i class="fa-solid fa-seedling text-emeraldGlow text-xl"></i>
+                    <h2 class="text-lg md:text-xl font-semibold uppercase tracking-wider text-white">
+                        Time Together
+                    </h2>
+                    <i class="fa-solid fa-seedling text-emeraldGlow text-xl"></i>
+                </div>
+
+                <!-- Timer Grid Display -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Days -->
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
+                        <span id="days" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">0</span>
+                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Days</span>
+                    </div>
+                    <!-- Hours -->
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
+                        <span id="hours" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
+                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Hours</span>
+                    </div>
+                    <!-- Minutes -->
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
+                        <span id="minutes" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
+                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Minutes</span>
+                    </div>
+                    <!-- Seconds -->
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col justify-center items-center group hover:bg-emeraldDeep/80 transition-all duration-300">
+                        <span id="seconds" class="text-4xl md:text-5xl font-bold text-white text-glow mb-1">00</span>
+                        <span class="text-xs md:text-sm font-medium text-emeraldGlow uppercase tracking-widest">Seconds</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-xs text-emeraldAccent/80 italic flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-infinity text-emeraldGlow"></i>
+                    <span>Growing stronger with every passing second</span>
+                </div>
             </div>
-            <div class="timer-box">
-                <span class="timer-value" id="minutes">00</span>
-                <span class="timer-label">min</span>
+
+            <!-- Photos & Album Link Section -->
+            <div class="w-full max-w-md text-center">
+                <a href="https://drive.proton.me/urls/B35ETS3AER#vEtWuanMmmUz" target="_blank" rel="noopener noreferrer" 
+                   class="group relative inline-flex items-center justify-center w-full px-8 py-4 text-lg font-semibold text-emeraldDark bg-emeraldGlow rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:bg-white focus:outline-none">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emeraldGlow to-emeraldAccent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    <span class="relative flex items-center gap-3">
+                        <i class="fa-solid fa-images text-xl"></i>
+                        <span>View Our Photo Album</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-sm group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </span>
+                </a>
+                <p class="mt-3 text-xs text-emeraldGlow/70">
+                    Click to explore all our favorite photos together
+                </p>
             </div>
-            <div class="timer-box">
-                <span class="timer-value" id="seconds">00</span>
-                <span class="timer-label">sec</span>
-            </div>
-        </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-6 text-center text-xs text-emeraldAccent/60">
+            <p class="flex items-center justify-center gap-1">
+                Made with <i class="fa-solid fa-heart text-emeraldGlow animate-pulse"></i> for Ozzy & Addi
+            </p>
+        </footer>
     </div>
 
-    <div class="gallery-container">
-        <a href="https://drive.proton.me/urls/B35ETS3AER#vEtWuanMmmUz" target="_blank" rel="noopener noreferrer" class="drive-btn">
-            📷 View Shared Photo Album
-        </a>
-    </div>
-
+    <!-- JavaScript Logic -->
     <script>
-        // Start Date calculated directly from Candle app screenshot: August 1, 2026, 23:50:01 CDT
+        // -------------------------------------------------------------
+        // 1. Precise Elapsed Time Counter Logic
+        // Start Date: August 1, 2026, 23:50:01 CDT
+        // -------------------------------------------------------------
         const startDate = new Date('2026-08-01T23:50:01-05:00').getTime();
 
         function updateCounter() {
@@ -184,8 +209,82 @@
             }
         }
 
+        // Run instantly and refresh every second
         updateCounter();
         setInterval(updateCounter, 1000);
+
+        // -------------------------------------------------------------
+        // 2. Animated Floating Green Heart Particles Canvas
+        // -------------------------------------------------------------
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class HeartParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + 20 + Math.random() * 50;
+                this.size = Math.random() * 12 + 6;
+                this.speedY = Math.random() * 1.2 + 0.4;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.fadeSpeed = Math.random() * 0.002 + 0.001;
+                this.hue = Math.random() * 40 + 140; // Green emerald spectrum
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.y * 0.02) * this.speedX;
+                this.opacity -= this.fadeSpeed;
+
+                if (this.y < -30 || this.opacity <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(this.size / 10, this.size / 10);
+                ctx.fillStyle = `hsla(${this.hue}, 80%, 65%, ${this.opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = `hsl(${this.hue}, 80%, 50%)`;
+
+                ctx.beginPath();
+                // Heart path formula
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-5, -5, -10, 2, 0, 10);
+                ctx.bezierCurveTo(10, 2, 5, -5, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        const particles = Array.from({ length: 35 }, () => new HeartParticle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            animateParticles();
+        };
     </script>
 </body>
 </html>
